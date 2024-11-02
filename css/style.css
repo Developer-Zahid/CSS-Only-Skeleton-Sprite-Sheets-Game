@@ -1,0 +1,163 @@
+* {
+  margin: 0;
+  box-sizing: border-box;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  font-family: "Rubik", sans-serif;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  min-height: 100vh;
+  min-height: 100svh;
+  background-image: linear-gradient(#3d0245 50%, #4f0e0d, #3e110e);
+  overflow: hidden;
+}
+
+[name=direction] {
+  position: fixed;
+  left: -10vw;
+  top: -10vw;
+}
+
+.wrapper {
+  display: grid;
+  grid-template-areas: ". run ." "left blast right";
+  gap: 15px;
+  padding: 20px;
+}
+
+[data-value=chasing] {
+  grid-area: run;
+}
+
+[for=left] {
+  grid-area: left;
+}
+
+[for=right] {
+  grid-area: right;
+}
+
+[data-value=explode] {
+  grid-area: blast;
+}
+
+.btn {
+  font-size: clamp(16px, 3vw, 22px);
+  background: hsl(340, 100%, 32%);
+  border-radius: 0.4em;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  outline-offset: 0.4em;
+}
+
+.btn__text {
+  font-weight: 700;
+  display: block;
+  padding: 0.5em 1.2em;
+  border-radius: inherit;
+  background: hsl(345, 100%, 47%);
+  color: white;
+  transform: translateY(-0.25em);
+}
+
+.btn:active .btn__text {
+  transform: translateY(-0.1em);
+}
+
+.bg {
+  --_move-direction: 1;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 52%;
+  z-index: -1;
+  transform: translateY(-50%);
+  height: max(500px, 50vh);
+  height: max(500px, 50svh);
+  background-image: var(--background-image);
+  background-size: contain;
+  background-repeat: repeat-x;
+  background-position-y: center;
+  animation: background-move 150s linear infinite;
+  animation-play-state: paused;
+}
+
+@keyframes background-move {
+  to {
+    background-position-x: calc(5000vw * var(--_move-direction));
+  }
+}
+.canvas {
+  --_spritesheet-image: var(--skeleton-transform-image);
+  --_canvas-width: var(--skeleton-transform-width);
+  --_canvas-height: var(--skeleton-transform-height);
+  --_total-step: var(--skeleton-transform-step);
+  --_duration: 0.5s;
+  --_rotateY: 0deg;
+  --_scale: 0.5;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: -1;
+  transform: translate(-50%, -50%) rotateY(var(--_rotateY)) scale(var(--_scale));
+  width: calc(var(--_canvas-width) / var(--_total-step));
+  height: var(--_canvas-height);
+  background: var(--_spritesheet-image) no-repeat;
+  animation: spritesheet-animation var(--_duration) steps(var(--_total-step)) infinite;
+}
+
+@keyframes spritesheet-animation {
+  to {
+    background-position-x: calc(var(--_canvas-width) * -1);
+  }
+}
+@media screen and (max-width: 550px) {
+  .canvas {
+    --_scale: 0.2;
+  }
+}
+@media screen and (min-width: 550px) and (max-width: 800px) {
+  .canvas {
+    --_scale: 0.4;
+  }
+}
+[value=left]:checked ~ .canvas {
+  --_rotateY: 0deg;
+}
+
+[value=right]:checked ~ .canvas {
+  --_rotateY: -180deg;
+}
+
+[value=left]:checked ~ .bg {
+  --_move-direction: 1;
+}
+
+[value=right]:checked ~ .bg {
+  --_move-direction: -1;
+}
+
+[data-value=explode]:active ~ .canvas {
+  --_spritesheet-image: var(--skeleton-explode-image);
+  --_canvas-width: var(--skeleton-explode-width);
+  --_canvas-height: var(--skeleton-explode-height);
+  --_total-step: var(--skeleton-explode-step);
+}
+
+[data-value=chasing]:active ~ .canvas {
+  --_spritesheet-image: var(--skeleton-chasing-image);
+  --_canvas-width: var(--skeleton-chasing-width);
+  --_canvas-height: var(--skeleton-chasing-height);
+  --_total-step: var(--skeleton-chasing-step);
+}
+
+[data-value=chasing]:active ~ .bg {
+  animation-play-state: running;
+}/*# sourceMappingURL=style.css.map */
