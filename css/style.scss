@@ -84,6 +84,7 @@ body {
     background-position-y: center;
     animation: background-move 150s linear infinite;
     animation-play-state: paused;
+    mix-blend-mode: lighten;
 }
 @keyframes background-move {
     to{
@@ -138,7 +139,6 @@ body {
 [value="right"]:checked ~ .bg {
     --_move-direction: -1;
 }
-
 [data-value="explode"]:active ~ .canvas {
     --_spritesheet-image: var(--skeleton-explode-image);
     --_canvas-width: var(--skeleton-explode-width);

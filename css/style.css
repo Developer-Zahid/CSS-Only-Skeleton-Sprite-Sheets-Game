@@ -87,6 +87,7 @@ body {
   background-position-y: center;
   animation: background-move 150s linear infinite;
   animation-play-state: paused;
+  mix-blend-mode: lighten;
 }
 
 @keyframes background-move {
