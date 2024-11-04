@@ -152,13 +152,17 @@ body {
   --_total-step: var(--skeleton-explode-step);
 }
 
-[data-value=chasing]:active ~ .canvas {
+[data-value=chasing]:active ~ .canvas,
+[value=left]:checked:active ~ .canvas,
+[value=right]:checked:active ~ .canvas {
   --_spritesheet-image: var(--skeleton-chasing-image);
   --_canvas-width: var(--skeleton-chasing-width);
   --_canvas-height: var(--skeleton-chasing-height);
   --_total-step: var(--skeleton-chasing-step);
 }
 
-[data-value=chasing]:active ~ .bg {
+[data-value=chasing]:active ~ .bg,
+[value=left]:checked:active ~ .bg,
+[value=right]:checked:active ~ .bg {
   animation-play-state: running;
 }/*# sourceMappingURL=style.css.map */
